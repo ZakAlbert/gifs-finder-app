@@ -1,32 +1,33 @@
-import React, { FC, useEffect, useState } from 'react';
-import './App.css';
-import { getGifsByKeyword } from 'services';
-import { Gif } from 'models';
-import { GifsList } from 'components';
+import React, { FC } from 'react';
+import { CssBaseline, ThemeProvider, Container, makeStyles } from '@material-ui/core';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Home, Details, Search } from 'pages';
+import AppTheme from 'theme/ThemeOption';
+import { AppHeader } from 'components';
 
+const useStyles = makeStyles({
+  root: {
+    marginTop: '1rem'
+  }
+});
 
 const App: FC = () => {
-  const [gifs, setGifs] = useState<Gif[]>([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setLoading(true);
-    getGifsByKeyword('gatos').then((data) => {
-      setGifs(data);
-      setLoading(false);
-    });
-  }, []);
+  const classes = useStyles();
 
   return (
-    <div className="App">
-      <h1>Gifs Finder</h1>
-      <div>
-        {
-          loading ?
-            <h3>CARGANGO</h3> :
-            <GifsList gifs={gifs} />
-        }
-      </div>
-    </div>
+    <ThemeProvider theme={AppTheme}>
+      <CssBaseline />
+      <Router>
+        <AppHeader />
+        <Container className={classes.root} >
+          <Switch>
+            <Route path="/details/:id" children={<Details />} />
+            <Route path="/search/:keyword" children={<Search />} />
+            <Route exact path="/" children={<Home />} />
+          </Switch>
+        </Container>
+      </Router>
+    </ThemeProvider >
   );
 }
 
