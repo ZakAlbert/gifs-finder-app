@@ -34,7 +34,7 @@
     "@types/node": "^14.0.27",
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
-    "luxon": "^1.24.1",
+    "luxon": "^1.28.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-image-masonry": "^0.4.0",
